@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Letters of Recommendation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+  max-width: 1200px;
+  margin: 3rem auto 0 auto;
+  padding: 2rem;
+  padding-bottom: 600px; /* ✅ Add this line or increase it */
+}
+
+
+    .header-bg {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: linear-gradient(135deg, #007BFF 0%, #007BFF 100%);
+      transform: skewY(-3deg);
+      z-index: -1;
+    }
+
+    header {
+  text-align: center;
+  margin-bottom: 8rem; /* increased from 3rem */
+  position: relative;
+}
+
+
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .lor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1rem;
+    }
+
+    .lor-card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .lor-img-container {
+      height: 420px;
+      background-color: #f1f5f9;
+      overflow: hidden;
+    }
+
+    .lor-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .lor-card:hover .lor-img {
+      transform: scale(1.05);
+    }
+
+    .lor-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lor-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+
+    .lor-issuer {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .container {
+  max-width: 1200px;
+  margin: 3rem auto 0 auto; /* <-- Added top margin */
+  padding: 2rem;
+}
+
+    .lor-date {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .lor-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .lor-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .lor-img-container {
+        height: 300px;
+      }
+    }
+
+                    /* Back Button - Sticky Top Left */
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+  transform: translateX(-2px);
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  background: #111827;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  background: #1f2937;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.scroll-top-btn .arrow {
+  width: 12px;
+  height: 12px;
+  margin: -2px 0;
+  transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(1) {
+  transform: translateY(-1px);
+}
+
+.scroll-top-btn:hover .arrow:nth-child(2) {
+  transform: translateY(-1px);
+  transition-delay: 0.05s;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(3) {
+  transform: translateY(-1px);
+  transition-delay: 0.1s;
+}
+  </style>
+</head>
+<body>
+
+    <button id="backButton" class="back-btn" onclick="goBack()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="m12 19-7-7 7-7"/>
+    <path d="M19 12H5"/>
+  </svg>
+  <span>Back</span>
+</button>
+
+  <div class="header-bg"></div>
+
+
+  <div class="container">
+    <header>
+      <h1>Letters of Recommendation</h1>
+    </header>
+
+    <div class="lor-grid">
+      <!-- LOR 1 -->
+      <div class="lor-card">
+        <div class="lor-img-container">
+          <img src="Used Images/Future Interns-LOR.webp" alt="LOR 1" class="lor-img">
+        </div>
+        <div class="lor-content">
+          <h3 class="lor-title">Cyber Security Intern LOR</h3>
+          <p class="lor-issuer">From: Mr Sujan Kumar C, Future Interns</p>
+          <p class="lor-date">Issued: February 2025</p>
+        </div>
+      </div>
+
+      <!-- LOR 2 -->
+      <div class="lor-card">
+        <div class="lor-img-container">
+          <img src="Used Images/CODEALPHA-LOR.webp" alt="LOR 2" class="lor-img">
+        </div>
+        <div class="lor-content">
+          <h3 class="lor-title">Cyber Security Intern LOR</h3>
+          <p class="lor-issuer">From: Mr Raj Jani, CODEALPHA</p>
+          <p class="lor-date">Issued: March 2025</p>
+        </div>
+      </div>
+
+      <!-- LOR 3 -->
+      <div class="lor-card">
+        <div class="lor-img-container">
+          <img src="Used Images/Agro-LOR.webp" alt="LOR 3" class="lor-img">
+        </div>
+        <div class="lor-content">
+          <h3 class="lor-title">Diploma Attachment LOR</h3>
+          <p class="lor-issuer">From: Mr Samuel Kamau, ACFC</p>
+          <p class="lor-date">Issued: March 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 90px;"></div>
+    <!-- Add this before closing body tag -->
+<button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()">
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+</button>
+
+  <script>
+      // Back button functionality
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/'; // or your home page URL
+  }
+}
+
+// Scroll to top functionality
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  
+  // Show button when user is near the bottom of the page
+  if (scrollTop > scrollHeight - clientHeight - 200) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+    
+    // Example usage:
+    // To update a certificate image, call this function with the index and URL
+    // updateCertificateImage(0, 'path/to/your/certificate.jpg');
+  </script>
+  </script>
+</body>
+</html>

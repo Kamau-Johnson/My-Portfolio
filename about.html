@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me - Kamau Johnson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #ecf0f3, #e5deff);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      color: #007BFF;
+      margin-block-end: 1rem;
+    }
+
+    p {
+      color: #555;
+      margin-block-end: 1rem;
+    }
+
+    .container {
+      max-inline-size: 1200px;
+      margin: 0 auto;
+      padding: clamp(1rem, 5vw, 2rem);
+      padding-bottom: 70px; /* ✅ Add this line */
+    }
+
+    .achievements-title {
+  color: #007BFF;
+  font-size: 0.8rem;
+  font-weight: 1; /* invalid, change to a valid value like 100 or 200 */
+  margin-bottom: 0.5rem;
+
+  margin-top: 85px; /* ADD THIS LINE to move down below back button */
+  animation: fadeInDown 1s ease-in-out;
+  margin-left: 20px;
+}
+
+
+
+    .divider {
+      inline-size: 80px;
+      block-size: 3px;
+      background: linear-gradient(to right, #7E69AB, #007BFF);
+      margin: 0 auto 2rem;
+      border-radius: 2px;
+      opacity: 0.8;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .bio {
+      flex: 1 1 60%;
+      animation: fadeIn 1s ease;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      margin-block-end: 2rem;
+      border: 1px solid rgba(155, 135, 245, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .section-title {
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+      margin-block-end: 1.5rem;
+    }
+
+    .horizontal-line {
+      inline-size: 100%;
+      block-size: 1px;
+      background: #e1e1e1;
+      margin: 2rem 0;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: #007BFF;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background: red;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(155, 135, 245, 0.4);
+    }
+
+    .profile {
+      flex: 1 1 30%;
+      position: relative;
+      animation: slideInRight 1s ease;
+    }
+
+    .profile-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profile-image-container {
+      position: relative;
+      inline-size: clamp(120px, 25vw, 200px);
+      block-size: clamp(120px, 25vw, 200px);
+      margin-block-end: 2rem;
+      animation: pulseSlow 3s infinite alternate;
+    }
+
+    .profile-image-container::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,
+        #7E69AB,
+        #9B87F5,
+        #007BFF,
+        #D946EF,
+        #F97316,
+        #0EA5E9,
+        #7E69AB
+      );
+      background-size: 300% 300%;
+      animation: gradientSpin 6s linear infinite;
+      z-index: -1;
+    }
+
+    .profile-image-wrap {
+      inline-size: 100%;
+      block-size: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      padding: 5px;
+      background: white;
+    }
+
+    .profile-image {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .profile-info {
+      text-align: center;
+      inline-size: 100%;
+      max-inline-size: 380px;
+      padding: 1rem 1.5rem;
+    }
+
+    .profile-title {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      color: black;
+      margin-block-end: 1.5rem;
+      font-weight: 800;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulseSlow {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes gradientSpin {
+      0% {
+        background-position: 0% 50%;
+        transform: rotate(0deg);
+      }
+
+      100% {
+        background-position: 100% 50%;
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-inline-size: 992px) {
+      .content {
+        flex-direction: column;
+      }
+
+      .bio,
+      .profile {
+        flex: 1 1 100%;
+        position: static;
+      }
+    }
+
+    @media (max-inline-size: 480px) {
+      .profile-image-container {
+        inline-size: 150px;
+        block-size: 150px;
+      }
+    }
+
+    /* Back Button - Sticky Top Left */
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+  transform: translateX(-2px);
+}
+
+/* Scroll to Top Button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  background: #111827;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  background: #1f2937;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.scroll-top-btn .arrow {
+  width: 12px;
+  height: 12px;
+  margin: -2px 0;
+  transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(1) {
+  transform: translateY(-1px);
+}
+
+.scroll-top-btn:hover .arrow:nth-child(2) {
+  transform: translateY(-1px);
+  transition-delay: 0.05s;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(3) {
+  transform: translateY(-1px);
+  transition-delay: 0.1s;
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- Add this to your HTML body, preferably near the top -->
+<button id="backButton" class="back-btn" onclick="goBack()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="m12 19-7-7 7-7"/>
+    <path d="M19 12H5"/>
+  </svg>
+  <span>Back</span>
+</button>
+
+  <div class="container">
+    <header class="achievements-title">
+      <h1>ABOUT</h1>
+    </header>
+
+    <div class="content">
+      <div class="bio">
+        <div class="card">
+          <h2 class="section-title">Who Am I?</h2>
+          <p>
+            Johnson is a tech-savvy problem solver and soon-to-be Computer Science graduate with expertise in software
+            development, cybersecurity, and data science. He combines technical precision with creative design to build
+            secure, user-focused digital solutions. Passionate about solving real-world problems, Johnson focuses on
+            writing clean, maintainable code, designing intuitive interfaces, and engineering future-ready systems. Always
+            adapting to new technologies, he aims to make a lasting impact in the fast-evolving tech world.
+          </p>
+
+          <div class="horizontal-line"></div>
+
+          <h3 class="section-title">My Journey</h3>
+          <p>
+            I started as a self-taught developer, driven by curiosity and determination. After earning a diploma in
+            Computer Science from Zetech University, I'm now pursuing my Bachelor's at the Catholic University of Eastern
+            Africa, set to graduate in 2027. Through internships at
+            <a href="https://www.futureinterns.com" target="_blank">Future Interns</a>,
+            <a href="https://www.codealpha.tech/internship.html" target="_blank">Code Alpha</a>,
+            <a href="https://www.codsoft.in/internships" target="_blank">Codsoft</a>, and an industrial attachment at
+            <a href="https://acfc.co.ke/" target="_blank">Agro Chemical & Food Company Limited (ACFC)</a>, I’ve gained
+            hands-on experience in cybersecurity, Python development, and system security.
+          </p>
+
+          <div class="horizontal-line"></div>
+        </div>
+      </div>
+
+      <div class="profile">
+        <div class="profile-content">
+          <div class="profile-image-container">
+            <div class="profile-image-wrap">
+              <img class="profile-image" src="Used Images/pic.webp" alt="Profile Photo" />
+            </div>
+          </div>
+          <div class="card profile-info">
+            <p class="profile-title">COMPUTER SCIENTIST</p>
+            <div class="horizontal-line"></div>
+            <div style="margin-block-start: 1rem;">
+              <a href="My CV/Kamau Johnson's CV.pdf" download class="download-btn">Download CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add this before closing body tag -->
+<button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()">
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+</button>
+
+<script>
+  // Back button functionality
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/'; // or your home page URL
+  }
+}
+
+// Scroll to top functionality
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  
+  // Show button when user is near the bottom of the page
+  if (scrollTop > scrollHeight - clientHeight - 200) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles & Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #007BFF;
+            --primary-light: #50a9ff;
+            --primary-dark: #005a9e;
+            --accent: #2b88d8;
+            --light: #ecf0f3;
+            --dark: #252525;
+            --gray: #767676;
+            --border: #d1d1d1;
+            --success: #107c10;
+            --error: #d13438;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            padding-bottom: 75px; /* ✅ Add this line */
+        }
+
+        /* Contact Layout */
+        .contact-layout {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+        }
+
+        /* Map Section - LEFT SIDE - REFINED HEIGHT */
+        .map-section {
+            flex: 0 0 35%;
+            max-width: 45%;
+            order: 1;
+        }
+
+        .map-container {
+            background-color: #ecf0f3;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            height: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .map-header {
+            padding: 12px 16px;
+            background-color: var(--primary);
+            color: #ecf0f3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .map-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .map-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .map-action-btn {
+            background: none;
+            border: none;
+            color: #ecf0f3;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .map-action-btn:hover {
+            opacity: 1;
+        }
+
+        .map-frame-container {
+            flex: 1;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
+            z-index: 10;
+        }
+
+        .map-overlay h3 {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--primary);
+        }
+
+        .map-overlay p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .directions-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--primary);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .directions-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .map-footer {
+            padding: 8px 16px;
+            background-color: #f9f9f9;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .map-footer-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .map-footer-btn {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+
+        .map-footer-btn:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            flex: 1;
+            order: 2;
+        }
+
+        .contact-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .contact-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .contact-header p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .contact-content {
+            padding: 30px 20px;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-info-title {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .contact-info-list {
+            list-style: none;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .contact-info-icon {
+            inline-size: 36px;
+            block-size: 36px;
+            background-color: rgba(0, 123, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info-content h3 {
+            font-size: 1rem;
+            margin-block-end: 3px;
+            color: var(--dark);
+        }
+
+        .contact-info-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Social Links */
+        .big-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .big-social-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 62.5px;
+            height: 62.5px;
+            border-radius: 50%;
+            background: whitesmoke;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 0.5s ease forwards;
+        }
+
+        .big-social-circle:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .big-social-circle:nth-child(1) { animation-delay: 0.3s; }
+        .big-social-circle:nth-child(2) { animation-delay: 0.4s; }
+        .big-social-circle:nth-child(3) { animation-delay: 0.5s; }
+        .big-social-circle:nth-child(4) { animation-delay: 0.6s; }
+        .big-social-circle:nth-child(5) { animation-delay: 0.7s; }
+        .big-social-circle:nth-child(6) { animation-delay: 0.8s; }
+
+        /* Contact Form */
+        .contact-form-title {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+        }
+
+        textarea.form-control {
+
+            min-block-size: 120px;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .form-control {
+            border-color: var(--error);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background-color: rgba(16, 124, 16, 0.1);
+            border: 1px solid var(--success);
+            padding: 15px;
+            border-radius: 4px;
+            margin-block-end: 20px;
+            color: var(--success);
+            font-weight: 500;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-layout {
+                flex-direction: column;
+            }
+            
+            .map-section, .contact-section {
+                flex: 1 0 100%;
+                max-width: 100%;
+                order: unset;
+            }
+            
+            .map-frame-container {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-inline-size: 768px) {
+            .container {
+                margin-top: 20px;
+                padding: 20px 15px;
+            }
+
+            .map-frame-container {
+
+                min-block-size: 200px;
+            }
+
+            .map-overlay {
+                max-inline-size: 180px;
+                padding: 8px;
+            }
+
+            .big-social-circle {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+            }
+        }
+
+
+        @media (max-width: 576px) {
+            .map-overlay {
+                display: none;
+            }
+
+            .map-header h2 {
+                font-size: 1rem;
+            }
+
+            .contact-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .big-social-links {
+                gap: 15px;
+            }
+
+            .big-social-circle {
+
+
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+                /* Back Button - Sticky Top Left */
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+  transform: tran
+  slateX(-2px);
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  background: #111827;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  background: #1f2937;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.scroll-top-btn .arrow {
+  width: 12px;
+  height: 12px;
+  margin: -2px 0;
+  transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(1) {
+  transform: translateY(-1px);
+}
+
+.scroll-top-btn:hover .arrow:nth-child(2) {
+  transform: translateY(-1px);
+  transition-delay: 0.05s;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(3) {
+  transform: translateY(-1px);
+  transition-delay: 0.1s;
+}
+    </style>   
+
+    <button id="backButton" class="back-btn" onclick="goBack()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="m12 19-7-7 7-7"/>
+    <path d="M19 12H5"/>
+  </svg>
+  <span>Back</span>
+</button>
+    <div class="container">
+        <div class="contact-layout">
+            <!-- Map Section - LEFT SIDE -->
+            <!-- MAP SECTION - LEFT SIDE -->
+<!-- MAP SECTION - LEFT SIDE -->
+<div class="map-section" id="map-section">
+    <div class="map-container" id="map-container">
+        <div class="map-header">
+            <h2>My Location</h2>
+            <div class="map-actions">
+                <button class="map-action-btn" id="refresh-map" aria-label="Refresh map">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button class="map-action-btn" id="expand-map" aria-label="Expand map">
+                    <i class="fas fa-expand-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="map-frame-container" id="map-wrapper">
+            <iframe class="map-frame" id="map-frame"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.727808988747!2d36.76364871669336!3d-1.394994694419649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1fdf0384bbff%3A0xafe0c87e4ae63d14!2sVision%20Towers%2C%20Ongata%20Rongai%2C%20Kenya!5e0!3m2!1sen!2ske!4v1715675290001!5m2!1sen!2ske"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            <div class="map-overlay">
+                <h3>Vision Towers</h3>
+                <p>Ongata Rongai, Kajiado County, Kenya</p>
+                <a href="https://www.google.com/maps/dir//JQ26%2BMPQ+Vision+Towers+Apartments,+Sironik+Road,+Ongata+Rongai/@-1.3982799,36.7592705,17z/data=!4m17!1m7!3m6!1s0x182f05293e9c5b6f:0x225914eb4952b66c!2sVision+Towers+Apartments!8m2!3d-1.3982853!4d36.7618454!16s%2Fg%2F11jbj5lk64!4m8!1m0!1m5!1m1!1s0x182f05293e9c5b6f:0x225914eb4952b66c!2m2!1d36.761837!2d-1.3982885!3e2?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="directions-btn">
+                    <i class="fas fa-directions"></i>
+                    <span>Get Directions</span>
+                </a>
+            </div>
+        </div>
+        <div class="map-footer">
+            <span>© Google Maps</span>
+        </div>
+    </div>
+</div>
+
+
+
+            <!-- Contact Section - RIGHT SIDE -->
+            <div class="contact-section">
+                <div class="contact-container">
+                    <div class="contact-header">
+                        <h2>Get In Touch</h2>
+                        <p>Have questions or want to work together? Reach out to me using the information below.</p>
+                    </div>
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <h3 class="contact-info-title">Contact Information</h3>
+                            <ul class="contact-info-list">
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>Address</h3>
+                                        <p>Ongata Rongai, Kajiado, Kenya</p>
+                                    </div>
+                                </li>
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>Email</h3>
+                                        <p>johnsonkamau542@gmail.com</p>
+                                    </div>
+                                </li>
+                                <li class="contact-info-item">
+                                    <div class="contact-info-icon">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div class="contact-info-content">
+                                        <h3>Phone</h3>
+                                        <p>+254768280952</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Updated Social Links - Matching Home Page Style -->
+                        <div class="big-social-links">
+                            <a href="https://www.linkedin.com/in/kamau-johnson-4bab25276/" class="big-social-circle" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Johnson-Tech-droid" class="big-social-circle" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="https://x.com/FifaMontag" class="big-social-circle" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a href="https://wa.me/+254768280952" class="big-social-circle" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="tel:+254768280952" class="big-social-circle"><i class="fas fa-phone"></i></a>
+                            <a href="https://www.youtube.com/@Kamau_Johnson" class="big-social-circle" target="_blank"><i class="fab fa-youtube"></i></a>
+                        </div>
+
+                        <div class="contact-form">
+                            <h3 class="contact-form-title">Send Me a Message</h3>
+                            
+                            <div class="success-message" id="success-message">
+                                Your message has been sent successfully! I'll get back to you soon.
+                            </div>
+                            
+                            <form id="contact-form">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Your name">
+                                    <div class="error-message">Please enter your name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Your email address">
+                                    <div class="error-message">Please enter a valid email address</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject" name="subject" class="form-control" placeholder="What is this regarding?">
+                                    <div class="error-message">Please enter a subject</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" class="form-control" placeholder="Your message"></textarea>
+                                    <div class="error-message">Please enter your message</div>
+                                </div>
+                                
+                                <button type="submit" id="submit-btn" class="submit-btn">
+                                    <span>Send Message</span>
+                                    <div class="spinner" id="spinner"></div>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <!-- Add this before closing body tag -->
+<button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()">
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('success-message');
+            const spinner = document.getElementById('spinner');
+            const submitBtn = document.getElementById('submit-btn');
+            const submitBtnText = submitBtn.querySelector('span');
+            const submitBtnIcon = submitBtn.querySelector('i');
+
+            function validateForm() {
+                let isValid = true;
+
+                document.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error');
+                });
+
+                const name = document.getElementById('name');
+                if (name.value.trim() === '') {
+                    name.parentElement.classList.add('error');
+                    isValid = false;
+                }
+
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value.trim())) {
+                    email.parentElement.classList.add('error');
+                    isValid = false;
+                }
+
+                const subject = document.getElementById('subject');
+                if (subject.value.trim() === '') {
+                    subject.parentElement.classList.add('error');
+                    isValid = false;
+                }
+
+                const message = document.getElementById('message');
+                if (message.value.trim() === '') {
+                    message.parentElement.classList.add('error');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                if (validateForm()) {
+                    spinner.style.display = 'block';
+                    submitBtnText.style.opacity = '0';
+                    submitBtnIcon.style.display = 'none';
+                    submitBtn.disabled = true;
+
+                    const templateParams = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    };
+
+                    emailjs.send('service_kamaujohnson', 'template_tl580zp', templateParams)
+                        .then(function (response) {
+                            console.log('SUCCESS!', response.status, response.text);
+
+                            spinner.style.display = 'none';
+                            submitBtnText.style.opacity = '1';
+                            submitBtnIcon.style.display = 'inline-block';
+                            submitBtn.disabled = false;
+
+                            successMessage.style.display = 'block';
+                            contactForm.reset();
+
+                            setTimeout(function () {
+                                successMessage.style.display = 'none';
+                            }, 5000);
+                        }, function (error) {
+                            console.error('FAILED...', error);
+
+                            spinner.style.display = 'none';
+                            submitBtnText.style.opacity = '1';
+                            submitBtnIcon.style.display = 'inline-block';
+                            submitBtn.disabled = false;
+
+                            alert('There was an error sending your message. Please try again later.');
+                        });
+                }
+            });
+
+            const formInputs = document.querySelectorAll('.form-control');
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    if (input.id === 'email') {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(input.value.trim()) && input.value.trim() !== '') {
+                            input.parentElement.classList.add('error');
+                        } else {
+                            input.parentElement.classList.remove('error');
+                        }
+                    } else {
+                        if (input.value.trim() === '') {
+                            input.parentElement.classList.add('error');
+                        } else {
+                            input.parentElement.classList.remove('error');
+                        }
+                    }
+                });
+
+                input.addEventListener('input', function () {
+                    if (input.parentElement.classList.contains('error')) {
+                        if (input.id === 'email') {
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (emailRegex.test(input.value.trim())) {
+                                input.parentElement.classList.remove('error');
+                            }
+                        } else {
+                            if (input.value.trim() !== '') {
+                                input.parentElement.classList.remove('error');
+                            }
+                        }
+                    }
+                });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+    const refreshBtn = document.getElementById('refresh-map');
+    const expandBtn = document.getElementById('expand-map');
+    const mapFrame = document.getElementById('map-frame');
+    const mapContainer = document.getElementById('map-container');
+    const expandIcon = expandBtn.querySelector('i');
+
+    // Refresh Map Function
+    refreshBtn.addEventListener('click', function () {
+        const currentSrc = mapFrame.src;
+        mapFrame.src = currentSrc;
+    });
+
+    // Expand/Collapse Fullscreen Toggle
+    expandBtn.addEventListener('click', function () {
+        if (!document.fullscreenElement) {
+            mapContainer.requestFullscreen().then(() => {
+                expandIcon.classList.remove('fa-expand-alt');
+                expandIcon.classList.add('fa-compress-alt');
+            });
+        } else {
+            document.exitFullscreen().then(() => {
+                expandIcon.classList.remove('fa-compress-alt');
+                expandIcon.classList.add('fa-expand-alt');
+            });
+        }
+    });
+
+    // In case user exits fullscreen via ESC or browser controls
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+            expandIcon.classList.remove('fa-compress-alt');
+            expandIcon.classList.add('fa-expand-alt');
+        }
+    });
+
+    // (Your existing form validation and email sending code continues here...)
+});
+// Back button functionality
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/'; // or your home page URL
+  }
+}
+
+// Scroll to top functionality
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  
+  // Show button when user is near the bottom of the page
+  if (scrollTop > scrollHeight - clientHeight - 200) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+
+    </script>
+</body>
+</html>

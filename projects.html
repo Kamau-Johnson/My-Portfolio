@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #ecf0f3;
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 1px;
+        }
+        
+        .projects-section {
+            padding: 100px 0;
+            position: relative;
+            margin-top: 0px; /* Adjust this value as needed */
+        }
+        
+        /* Back Button - Sticky Top Left */
+        .back-btn {
+            position: absolute;
+            top: 55px;
+            left: 24px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #f9fafb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            color: #111827;
+            transform: translateY(-1px);
+        }
+
+        .back-btn svg {
+            transition: transform 0.2s ease;
+        }
+
+        .back-btn:hover svg {
+            transform: translateX(-2px);
+        }
+        
+        .header {
+            margin-top: 0px;
+        }
+        
+        .projects-title {
+            color: #007BFF;
+            font-size: 1.3rem;
+            font-weight: 120;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease-in-out;
+        }
+        
+        .projects-subtitle {
+            color: #111827;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        
+        .projects-text {
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            color: #4b5563;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .projects-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 70px;
+            flex-wrap: wrap;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.2s;
+        }
+        
+        .filter-btn {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 12px;
+            background-color: #ffffff;
+            color: #374151;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.1), transparent);
+            transition: all 0.6s;
+        }
+        
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #007BFF;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.4s;
+        }
+        
+        .project-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            height: 350px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(135, 206, 235, 0.8), rgba(0, 123, 255, 0.8));
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2;
+            border-radius: 16px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(135, 206, 235, 0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background-color: #f3f4f6;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 1.1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.02);
+        }
+
+        .project-content {
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .more-info-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            color: #007BFF;
+            border: 2px solid #007BFF;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 3;
+        }
+
+        .project-card:hover .more-info-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .more-info-btn:hover {
+            background: #007BFF;
+            color: white;
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .project-tech {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tech-tag {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .see-all-container {
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.6s;
+        }
+        
+        .see-all-btn {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .see-all-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s;
+        }
+        
+        .see-all-btn:hover::before {
+            left: 100%;
+        }
+        
+        .see-all-btn:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 123, 255, 0.3);
+        }
+        
+        .see-all-btn i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .see-all-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Category badge */
+        .category-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #374151;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 3;
+            backdrop-filter: blur(5px);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .elixir-badge {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8b4513;
+            border-color: rgba(139, 69, 19, 0.2);
+        }
+        
+        .react-badge {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007BFF;
+            border-color: rgba(0, 123, 255, 0.2);
+        }
+        
+        /* Scroll to top button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            background: #111827;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            background: #1f2937;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        .scroll-top-btn .arrow {
+            width: 12px;
+            height: 12px;
+            margin: -2px 0;
+            transition: transform 0.2s ease;
+        }
+
+        .scroll-top-btn:hover .arrow:nth-child(1) {
+            transform: translateY(-1px);
+        }
+
+        .scroll-top-btn:hover .arrow:nth-child(2) {
+            transform: translateY(-1px);
+            transition-delay: 0.05s;
+        }
+
+        .scroll-top-btn:hover .arrow:nth-child(3) {
+            transform: translateY(-1px);
+            transition-delay: 0.1s;
+        }
+        
+        /* Animation classes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .projects-subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 250px;
+                text-align: center;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .projects-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .project-card {
+                height: auto;
+            }
+        }
+
+        /* Fallback media query for ultra-small devices */
+        @media (max-width: 360px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .projects-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .project-card {
+                width: 100% !important;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button id="backButton" class="back-btn" onclick="goBack()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+        </svg>
+        <span>Back</span>
+    </button>
+
+    <section class="projects-section">
+        <div class="container">
+            <header class="header">
+                <div class="container">
+                    <h1 class="projects-title animate__animated animate__fadeInDown">PROJECTS</h1>
+                    <h2 class="projects-subtitle animate__animated animate__fadeInUp">Some of my recent projects</h2>
+
+                    <div class="projects-text animate__animated animate__fadeIn">
+                        <p>
+                            These are some of my best projects, built using HTML, CSS, JavaScript, PHP, MySQL, React Native, and Python, along with other modern web development tools.
+                            I focused on creating responsive, user-friendly interfaces while ensuring clean, maintainable code. Whether building dynamic full-stack applications or mobile-first designs, my goal has been to deliver performant, accessible, and engaging user experiences across platforms.
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="filter-container animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+                <a href="#" class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th-large"></i> All Projects
+                </a>
+                <!-- <a href="#" class="filter-btn" data-filter="elixir">
+                    <i class="fas fa-server"></i> Phoenix / Elixir Projects
+                </a>
+                <a href="#" class="filter-btn" data-filter="react">
+                    <i class="fab fa-react"></i> React / Javascript Projects
+                </a> -->
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Project 1 - Elixir -->
+                <div class="project-card animate__animated animate__zoomIn" data-category="elixir" style="animation-delay: 0.3s;">
+                    <div class="category-badge elixir-badge">PHP</div>
+                    <div class="project-image">
+                        <img src="Used Images/O-VAULT Project.webp" alt="O-VAULT System LiveView" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">O-VAULT System LiveView</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML & Tailwind CSS</span>
+                            <span class="tech-tag">Javascript</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                    <a href="#" class="more-info-btn">View <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <!-- <div class="project-card animate__animated animate__zoomIn" data-category="react" style="animation-delay: 0.4s;">
+                    <div class="category-badge react-badge">React</div>
+                    <div class="project-image">
+                        <img src="path/to/your/image2.webp" alt="React Dashboard Thumbnail" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">React Dashboard</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Tailwind</span>
+                        </div>
+                    </div>
+                    <a href="https://your-react-dashboard.com" class="more-info-btn">More Info <i class="fas fa-arrow-right"></i></a>
+                </div>
+                -->
+                <!--<div class="see-all-container animate__animated animate__fadeIn" style="animation-delay: 0.7s;">
+                    <a href="https://github.com/Johnson-Tech-droid" class="see-all-btn">See All My Projects <i class="fas fa-long-arrow-alt-right"></i></a>
+                </div>
+            </div>--->
+        
+    </section>
+
+    <!-- Scroll to top button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()">
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script>
+        // Back button functionality
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/'; // or your home page URL
+            }
+        }
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight;
+            const clientHeight = document.documentElement.clientHeight;
+            
+            // Show button when user is near the bottom of the page
+            if (scrollTop > scrollHeight - clientHeight - 200) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Filter functionality with animations
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                // Filter projects with smooth animations
+                projectCards.forEach((card, index) => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100 + (index * 50));
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Add smooth transitions for filtering
+        projectCards.forEach(card => {
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        });
+
+        // Add click handlers for "More Info" buttons
+        document.querySelectorAll('.more-info-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Get the href attribute and redirect
+                const url = btn.getAttribute('href');
+                if (url && url !== '#') {
+                    window.open(url, '_blank');
+                } else {
+                    alert('Project URL will be added soon!');
+                }
+            });
+        });
+
+        // Add click handler for "See All Projects" button
+        document.querySelector('.see-all-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Get the href attribute and redirect
+            const url = e.target.getAttribute('href');
+            if (url && url !== '#') {
+                window.location.href = url;
+            } else {
+                alert('All projects page will be available soon!');
+            }
+        });
+
+        // Ensure animations play when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.animate__animated');
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

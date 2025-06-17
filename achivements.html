@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievements | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #ecf0f3;
+      color: #333;
+      line-height: 1.6;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 60px; /* ✅ Add this line */
+    }
+
+    .achievements-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 120;  /* Very thin */
+  color: #007BFF;
+  margin-top: 50px;   /* Optional, adjust as needed */
+  margin-bottom: 0.5rem;
+  margin-left: 10px;
+}
+
+
+    .header {
+  margin-top: 60px; /* Adjust as needed */
+}
+
+
+    .achievements-subtitle {
+      color: #111827;
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    .achievements-text {
+      margin-bottom: 2.5rem;
+      max-width: 800px;
+      color: #4b5563;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .achievements-text p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .photo-grid {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .photo-card {
+      width: calc(33.333% - 1.35rem);
+      aspect-ratio: 1/1;
+      background-color: #ecf0f3;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomIn 0.7s ease-in-out;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      padding: 1.5rem;
+      color: #ecf0f3;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photo-card:hover .photo-overlay {
+      opacity: 1;
+    }
+
+    .photo-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .photo-description {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* Larger card - Custom sizing */
+    .large-photo-card {
+      width: 100%; /* ✅ You can change width here */
+      max-width: 960px;
+      height: 460px; /* ✅ You can change height here */
+      margin: 2rem auto 0 auto;
+      background-color: #ecf0f3;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomIn 0.7s ease-in-out;
+    }
+
+    .large-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures full fit */
+    }
+
+    .large-photo-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .large-photo-card .photo-overlay {
+      padding: 2rem;
+      font-size: 1.1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .photo-card {
+        width: calc(50% - 1rem);
+      }
+      .achievements-title {
+        font-size: 2.5rem;
+      }
+      .achievements-subtitle {
+        font-size: 1.7rem;
+      }
+      body {
+        padding: 1rem;
+      }
+      .large-photo-card {
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .photo-card {
+        width: 100%;
+      }
+      .achievements-title {
+        font-size: 2rem;
+      }
+      .achievements-subtitle {
+        font-size: 1.5rem;
+      }
+      .large-photo-card {
+        height: 300px;
+      }
+    }
+
+    /* Style for separating list items */
+    ul li {
+      margin-bottom: 2rem; /* Adds space between list items */
+    }
+
+    /* Specific fix for third image */
+    .fit-card {
+      aspect-ratio: unset;
+      height: auto;
+      width: 100%; /* or set a max-width if needed */
+      max-width: 400px;
+    }
+
+    .fit-card img.fit-image {
+      object-fit: contain;
+      width: 100%;
+      height: auto;
+      background-color: #fff;
+    }
+
+    .align-fit {
+      aspect-ratio: unset;
+      width: calc(33.333% - 1.35rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .align-fit .img-wrapper {
+      width: 100%;
+      background-color: #fff;
+      padding: 0.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .align-fit img.fit-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .star-bullet {
+      list-style: none;
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .star-bullet li::before {
+      content: "";
+      color: #007BFF; /* Star color */
+      font-size: 1rem;
+      margin-right: 3.0rem;
+    }
+
+    .takeaway-heading {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: black;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .star-bullet {
+      list-style: none;
+      padding-left: 0;
+      color: #374151;
+    }
+
+    .star-bullet li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .star-bullet li::before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: black;
+      font-size: 1rem;
+    }
+
+    /* Images scaling properly */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Fallback media query for ultra-small devices */
+    @media (max-width: 360px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .achievements-subtitle {
+        font-size: 1.3rem;
+      }
+
+      .takeaway-heading {
+        font-size: 1rem;
+      }
+
+      .photo-card,
+      .align-fit {
+        width: 100% !important;
+      }
+
+      .large-photo-card {
+        height: auto;
+      }
+    }
+        /* Back Button - Sticky Top Left */
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+  transform: translateX(-2px);
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  background: #111827;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  background: #1f2937;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.scroll-top-btn .arrow {
+  width: 12px;
+  height: 12px;
+  margin: -2px 0;
+  transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(1) {
+  transform: translateY(-1px);
+}
+
+.scroll-top-btn:hover .arrow:nth-child(2) {
+  transform: translateY(-1px);
+  transition-delay: 0.05s;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(3) {
+  transform: translateY(-1px);
+  transition-delay: 0.1s;
+}
+  </style>
+</head>
+<body>
+    <!-- Add this to your HTML body, preferably near the top -->
+<button id="backButton" class="back-btn" onclick="goBack()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="m12 19-7-7 7-7"/>
+    <path d="M19 12H5"/>
+  </svg>
+  <span>Back</span>
+</button>
+
+  <div class="container">
+  <header class="header">
+  <div class="container">
+    <h1 class="achievements-title animate__animated animate__fadeInDown">ACHIEVEMENTS</h1>
+    <h2 class="achievements-subtitle animate__animated animate__fadeInUp">What I have achieved so far</h2>
+
+    <div class="achievements-text animate__animated animate__fadeIn">
+      <p>
+        During the start of my tech life in the year 2023, I was able to participate in various hackathons and won one of them:
+      </p>
+
+      <ul style="margin-top: 1rem; padding-left: 1.5rem; color: #4b5563; line-height: 1.8;">
+        <li>
+          In October 2024, I participated in my first hackathon, the <strong>Power Hacks Hackathon</strong>, representing <strong>SOSTOS Blog</strong>. Sponsored by <a href="https://powerlearnprojectafrica.org/" target="_blank">PLP</a>, <a href="https://www.safaricom.co.ke/" target="_blank">Safaricom</a>, <a href="https://www.spaceyatech.com/" target="_blank">SpaceYaTech</a>, <a href="https://payd.money/" target="_blank">Payd</a>, and others, we developed an app that verifies statement accuracy. I led full-stack development with <strong>HTML, CSS, JS, React Native, and PHP</strong>, delivering a user-friendly, secure platform that addressed misinformation. Despite being a first-time hackathon participant, we secured <strong>4th Runners-Up</strong>, which fueled my passion for tech innovation.
+        </li>
+
+        <li>
+          In April 2025, I took part in a Blockchain and Web3 Bootcamp held from April 25th to 29th, hosted by 
+          <a href="https://www.muiaa.com/" target="_blank">MUIAA</a>, 
+          <a href="https://nairobi.go.ke/" target="_blank">NairobiCountyGovernment</a>, and 
+          <a href="https://www.computeraid.org/" target="_blank">ComputerAidKenya</a>. We were introduced to <strong>Cypherium Blockchain</strong>—a next-generation blockchain built for enterprise and CBDC integration.
+
+          Alongside my teammates <strong>Risper, Mitau, and Keziah</strong>, we developed <strong>BebaPay</strong>, a tokenized recycling platform that rewards Nairobi residents for proper waste disposal. Despite being entirely new to the technology, we adapted quickly, and I was responsible for designing and implementing the <strong>smart contract layer</strong> that powered the platform's core functionality.
+
+          Our innovation earned us the <strong>First Runners-Up</strong> award and a <strong>$1000 cash prize</strong>, recognized for its technical execution, real-world relevance, and the collaborative effort that brought BebaPay to life.
+
+          <div class="takeaway-heading" style="margin-left: 1.5rem;">My Key Takeaways from the Bootcamp</div>
+          <ul class="star-bullet" style="margin-left: 2rem;">
+            <li>
+              Learned to build and deploy smart contracts using Cypherium’s blockchain stack, and successfully launched our demo on a live testnet.
+            </li>
+            <li>
+              Sharpened my pitching techniques—learning to pitch under pressure and communicate complex ideas with clarity, confidence, and purpose in just minutes.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="large-photo-card animate__animated animate__zoomIn">
+      <img src="Used Images/BebaPay Hackathon.webp" alt="Highlights">
+      <div class="photo-overlay">
+        <h3 class="photo-title">Highlight Achievement</h3>
+        <p class="photo-description">Describe this major achievement. You can customize this text as needed.</p>
+      </div>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-card animate__animated animate__zoomIn">
+        <img src="Used Images/Power Hacks Hackathon.webp" alt="Hackathon Achievement 1">
+        <div class="photo-overlay">
+          <h3 class="photo-title">Power Hacks Hackathon</h3>
+          <p class="photo-description"></p>
+        </div>
+      </div>
+
+      <div class="photo-card animate__animated animate__zoomIn">
+        <img src="Used Images/Blockchain Bootcamp 1.webp" alt="Hackathon Achievement 2">
+        <div class="photo-overlay">
+          <h3 class="photo-title">Blockchain & Web 3 Bootcamp</h3>
+        </div>
+      </div>
+
+      <div class="photo-card align-fit animate__animated animate__zoomIn">
+        <div class="img-wrapper">
+          <img class="fit-image" src="Used Images/mypic.webp" alt="Hackathon Achievement 3">
+        </div>
+        <div class="photo-overlay">
+          <h3 class="photo-title">Blockchain & Web 3 Hackathon (BEBAPAY Solution)</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Add this before closing body tag -->
+<button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()">
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+</button>
+
+  <script>
+  // Back button functionality
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/'; // or your home page URL
+  }
+}
+
+// Scroll to top functionality
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  
+  // Show button when user is near the bottom of the page
+  if (scrollTop > scrollHeight - clientHeight - 200) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+</script>
+
+</body>
+</html>

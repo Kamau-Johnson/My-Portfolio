@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Certificates & Skills</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      padding-bottom: 120px; /* ✅ Add this line */
+    }
+    
+    /* Header Styles */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .header-bg {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: linear-gradient(135deg, #007BFF 0%, #007BFF 100%);
+      transform: skewY(-3deg);
+      z-index: 1;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* Filter Buttons */
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+    
+    .filter-btn {
+      background-color: #fff;
+      border: 2px solid #e2e8f0;
+      color: #64748b;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .filter-btn:hover {
+      border-color: #cbd5e1;
+      color: #475569;
+    }
+    
+    .filter-btn.active {
+      background-color: #007BFF;
+      border-color: #007BFF;
+      color: #fff;
+    }
+    
+    /* Certificate Grid */
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .certificate-card {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .certificate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .certificate-img-container {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      background-color: #f1f5f9;
+    }
+    
+    .certificate-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .certificate-card:hover .certificate-img {
+      transform: scale(1.05);
+    }
+    
+    .certificate-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .certificate-card:hover .certificate-overlay {
+      opacity: 1;
+    }
+    
+    .view-btn {
+      background-color: #ecf0f3;
+      color: #1e293b;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .view-btn:hover {
+      background-color: #ecf0f3;
+      transform: scale(1.05);
+    }
+    
+    .certificate-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .certificate-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+    
+    .certificate-issuer {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .issuer-logo {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .certificate-date {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-top: auto;
+    }
+    
+    .certificate-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .badge-tech {
+      background-color: #dbeafe;
+      color: #007BFF;
+    }
+    
+    .badge-nontech {
+      background-color: #fef3c7;
+      color: #d97706;
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-content {
+      background-color: #ecf0f3;
+      border-radius: 12px;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: hidden;
+      position: relative;
+      width: 800px;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+    
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #ecf0f3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #64748b;
+      transition: color 0.2s ease;
+    }
+    
+    .modal-close:hover {
+      color: #1e293b;
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+    
+    .modal-img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .modal-details {
+      margin-top: 1.5rem;
+    }
+    
+    .modal-detail-item {
+      margin-bottom: 1rem;
+    }
+    
+    .modal-detail-label {
+      font-weight: 600;
+      color: #64748b;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    
+    .modal-detail-value {
+      color: #1e293b;
+      font-size: 1rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .certificates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .filter-container {
+        flex-wrap: wrap;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .certificates-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+      
+      .certificate-img-container {
+        height: 180px;
+      }
+    }
+    
+    /* Animation for cards */
+    .certificates-grid .certificate-card:nth-child(1) { animation-delay: 0.1s; }
+    .certificates-grid .certificate-card:nth-child(2) { animation-delay: 0.2s; }
+    .certificates-grid .certificate-card:nth-child(3) { animation-delay: 0.3s; }
+    .certificates-grid .certificate-card:nth-child(4) { animation-delay: 0.4s; }
+    .certificates-grid .certificate-card:nth-child(5) { animation-delay: 0.5s; }
+    .certificates-grid .certificate-card:nth-child(6) { animation-delay: 0.6s; }
+    .certificates-grid .certificate-card:nth-child(7) { animation-delay: 0.7s; }
+    .certificates-grid .certificate-card:nth-child(8) { animation-delay: 0.8s; }
+
+    .top-badge-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.top-badge-btn:hover {
+  background-color: #e68900;
+}
+
+.top-lor-btn {
+  position: absolute;
+  top: 4.0rem; /* slightly below the Badges button */
+  right: 2rem;
+  background-color: brown; /* slate blue for distinction */
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.top-lor-btn:hover {
+  background-color: red;
+}
+
+                /* Back Button - Sticky Top Left */
+.back-btn {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  background: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+.back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover svg {
+  transform: translateX(-2px);
+}
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  background: #111827;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn:hover {
+  background: #1f2937;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.scroll-top-btn .arrow {
+  width: 12px;
+  height: 12px;
+  margin: -2px 0;
+  transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(1) {
+  transform: translateY(-1px);
+}
+
+.scroll-top-btn:hover .arrow:nth-child(2) {
+  transform: translateY(-1px);
+  transition-delay: 0.05s;
+}
+
+.scroll-top-btn:hover .arrow:nth-child(3) {
+  transform: translateY(-1px);
+  transition-delay: 0.1s;
+}
+  </style>
+</head>
+<body>
+
+   <button id="backButton" class="back-btn" onclick="goBack()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="m12 19-7-7 7-7"/>
+    <path d="M19 12H5"/>
+  </svg>
+  <span>Back</span>
+</button>
+
+  <div class="header-bg"></div>
+
+  <a href="Badges.html" class="top-badge-btn">🏅 Badges</a>
+  <a href="LOR's.html" class="top-lor-btn">📜 LOR's</a>
+
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1>My Certificates & Skills</h1>
+        <p class="subtitle">A showcase of my professional development journey and acquired skills</p>
+      </div>
+    </header>
+    
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">All Certificates</button>
+      <button class="filter-btn" data-filter="tech">Technical Skills</button>
+      <button class="filter-btn" data-filter="nontech">Non-Technical Skills</button>
+    </div>
+    
+    <div class="certificates-grid">
+
+    
+<!--Certificate 1-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Front end Dev.webp" alt="Front End Development" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Front End Development</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Mindluster-logo.webp" alt="Mindluster" class="issuer-logo">
+            Mindluster
+          </p>
+          <p class="certificate-date">Issued: February 2024</p>
+        </div>
+      </div>
+<!--Certificate 2-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Python Cert.webp" alt="Python Programming" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Python Programming</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Alison-logo.webp" alt="Mindluster" class="issuer-logo">
+            Alison University
+          </p>
+          <p class="certificate-date">Issued: February 2025</p>
+        </div>
+      </div>
+<!--Certificate 3-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Graphics Design.webp" alt="Graphics Design" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Graphics Design</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Mindluster-logo.webp" alt="Mindluster" class="issuer-logo">
+            Mindluster
+          </p>
+          <p class="certificate-date">Issued: August 2023</p>
+        </div>
+      </div>
+<!--Certificate 4-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/CODEALPHA Cert.webp" alt="Cyber Security Intern" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Cyber Security Intern</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/CODEALPHA-logo.webp" alt="Mindluster" class="issuer-logo">
+            CODEALPHA
+          </p>
+          <p class="certificate-date">Issued: March 2025</p>
+        </div>
+      </div>
+<!--Certificate 5-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/CODSOFT Cert.webp" alt="Python Developer Intern" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Python Developer Intern</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/CODSOFT-logo.webp" alt="Mindluster" class="issuer-logo">
+            CODSOFT
+          </p>
+          <p class="certificate-date">Issued: January 2025</p>
+        </div>
+      </div>
+<!--Certificate 6-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/FUTURE INTERNS Cert.webp" alt="Cyber Security Intern" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Cyber Security Intern</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Future Interns-logo.webp" alt="Mindluster" class="issuer-logo">
+            Future Interns
+          </p>
+          <p class="certificate-date">Issued: November 2024</p>
+        </div>
+      </div>
+
+<!--Certificate 7-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Cisco Cert 3.webp" alt="Introduction to Networks" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Introduction to Networks</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Cisco-logo.webp" alt="Cisco" class="issuer-logo">
+            CCNA Cisco
+          </p>
+          <p class="certificate-date">Start: Issued: January 2024</p>
+        </div>
+      </div>
+
+<!--Certificate 8-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/CCNA Cert.webp" alt="Introduction to Cisco" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Introduction to Cisco</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Cisco-logo.webp" alt="Mindluster" class="issuer-logo">
+            CCNA Cisco
+          </p>
+          <p class="certificate-date">Issued: January 2024</p>
+        </div>
+      </div>
+
+<!--Certificate 9-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Cisco Cert 2.webp" alt="Switching,Routing and Wireless Essentials" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Switching,Routing and Wireless Essentials</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Cisco-logo.webp" alt="Cisco" class="issuer-logo">
+            CCNA Cisco
+          </p>
+          <p class="certificate-date">Start: Issued: May 2024</p>
+        </div>
+      </div>
+
+<!--Certificate 10-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/PLP Scholarship Offer Acceptance.webp" alt="Fully Funded Schorlarship Acceptance to study Software Development" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Fully Funded Schorlarship Acceptance to study Software Development</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/PLP-logo.webp" alt="Mindluster" class="issuer-logo">
+            Power Learning Project (PLP)
+          </p>
+          <p class="certificate-date">Issued: February Cohort 2025</p>
+        </div>
+      </div>
+<!--Certificate 11-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Blockchain Bootcamp Cert.webp" alt="Blockchain and Web 3 Bootcamp/Hackathon" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Blockchain and Web 3 Bootcamp/Hackathon</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/MUIAA-logo.webp" alt="Mindluster" class="issuer-logo">
+            MUIAA
+          </p>
+          <p class="certificate-date">Issued: April 2025</p>
+        </div>
+      </div>
+<!--Certificate 12-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Dip in Cyber security.webp" alt="Diploma in Cyber Security" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Diploma in Cyber Security</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/ALISON UNI-logo.webp" alt="Mindluster" class="issuer-logo">
+            University of Alison
+          </p>
+          <p class="certificate-date">Start: May 2023 - Issued: February 2025</p>
+        </div>
+      </div>
+<!--Certificate 13-->
+      <div class="certificate-card" data-category="tech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Dip in Computer Science.webp" alt="Diploma in Computer Science" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Diploma in Computer Science</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Zetech-logo.webp" alt="Mindluster" class="issuer-logo">
+            Zetech University (ZU)
+          </p>
+          <p class="certificate-date">Start: May 2023 - Issued: April 2025</p>
+        </div>
+      </div>
+
+      <!-- Non-Technical Certificates -->
+      <div class="certificate-card" data-category="nontech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Diploma in Leadership and Management Skills .webp" alt="Diploma in Leadership and Management Styles" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Diploma in Leadership and Management Styles (Soon to Graduate)</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/ALISON UNI-logo.webp" alt="Mindluster" class="issuer-logo">
+            Alison University
+          </p>
+          <p class="certificate-date">Start: July 2024 - End of Course: March 2025</p>
+        </div>
+      </div>
+      
+      <div class="certificate-card" data-category="nontech">
+        <div class="certificate-img-container">
+          <img src="Used Images/Effective Communication Skills Cert.webp" alt="Certificate in Effective Communication Skills" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">Certificate in Effective Communication Skills</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/Mindluster-logo.webp" alt="Mindluster" class="issuer-logo">
+            Mindluster
+          </p>
+          <p class="certificate-date">Issued: December 2024</p>
+        </div>
+      </div>
+      
+      <div class="certificate-card" data-category="nontech">
+        <div class="certificate-img-container">
+          <img src="Used Images/IMUN Cert.webp" alt="International Model United Nations Ambassador" class="certificate-img">
+          <div class="certificate-overlay">
+            <button class="view-btn">View Certificate</button>
+          </div>
+        </div>
+        <div class="certificate-content">
+          <h3 class="certificate-title">International Model United Nations Ambassador</h3>
+          <p class="certificate-issuer">
+            <img src="Used Images/IMUN-logo.webp" alt="Mindluster" class="issuer-logo">
+            IMUN
+          </p>
+          <p class="certificate-date">Issued: March 2025</p>
+        </div>
+      </div>
+  
+  <!-- Certificate Modal -->
+  <div class="modal" id="certificateModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Certificate Title</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="/placeholder.svg" alt="Certificate" class="modal-img" id="modalImg">
+        <div class="modal-details">
+          <div class="modal-detail-item">
+            <span class="modal-detail-label">Issuing Organization</span>
+            <div class="modal-detail-value" id="modalIssuer">Organization Name</div>
+          </div>
+          <div class="modal-detail-item">
+            <span class="modal-detail-label">Issue Date</span>
+            <div class="modal-detail-value" id="modalDate">Month Year</div>
+          </div>
+          <div class="modal-detail-item">
+            <span class="modal-detail-label">Skills</span>
+            <div class="modal-detail-value" id="modalCategory">Skills</div>
+          </div>
+          <div class="modal-detail-item">
+            <span class="modal-detail-label">Description</span>
+            <div class="modal-detail-value" id="modalDescription">
+              Earned by successfully completing rigorous assessments and projects, this certification highlights my ability to deliver results using industry-standard tools and practices.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add this before closing body tag -->
+<button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()">
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+    <path d="m18 15-6-6-6 6"/>
+  </svg>
+</button>
+  
+  <script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const certificateCards = document.querySelectorAll('.certificate-card');
+      const modal = document.getElementById('certificateModal');
+      const modalClose = document.querySelector('.modal-close');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalImg = document.getElementById('modalImg');
+      const modalIssuer = document.getElementById('modalIssuer');
+      const modalDate = document.getElementById('modalDate');
+      const modalCategory = document.getElementById('modalCategory');
+      const modalDescription = document.getElementById('modalDescription');
+      
+      // Filter buttons click event
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          // Get filter value
+          const filterValue = button.getAttribute('data-filter');
+          
+          // Filter certificates
+          certificateCards.forEach(card => {
+            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+              card.style.display = 'flex';
+              
+              // Reset animation
+              card.style.animation = 'none';
+              card.offsetHeight; // Trigger reflow
+              card.style.animation = null;
+              
+              // Add staggered animation
+              const index = Array.from(certificateCards).indexOf(card);
+              card.style.animationDelay = `${0.1 * index}s`;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Certificate card click event
+      certificateCards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Get certificate details
+          const title = card.querySelector('.certificate-title').textContent;
+          const imgSrc = card.querySelector('.certificate-img').src;
+          const issuer = card.querySelector('.certificate-issuer').textContent.trim();
+          const date = card.querySelector('.certificate-date').textContent.replace('Issued: ', '');
+          const category = card.getAttribute('data-category') === 'tech' ? 'Technical' : 'Non-Technical';
+          
+          // Set modal content
+          modalTitle.textContent = title;
+          modalImg.src = imgSrc;
+          modalImg.alt = title;
+          modalIssuer.textContent = issuer;
+          modalDate.textContent = date;
+          modalCategory.textContent = category;
+          
+          // Set description based on category
+          if (category === 'Technical') {
+            modalDescription.textContent = `This certificate validates proficiency in ${title} and demonstrates the ability to apply these skills in professional contexts.`;
+          } else {
+            modalDescription.textContent = `This certificate recognizes excellence in ${title} and the ability to apply these professional skills in various situations.`;
+          }
+          
+          // Show modal
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+      });
+      
+      // Close modal
+      modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Enable scrolling
+      });
+      
+      // Close modal when clicking outside
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          document.body.style.overflow = ''; // Enable scrolling
+        }
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          modal.classList.remove('active');
+          document.body.style.overflow = ''; // Enable scrolling
+        }
+      });
+    });
+    
+    // Function to replace placeholder images with your actual certificates
+    function updateCertificateImage(cardIndex, imageUrl) {
+      const cards = document.querySelectorAll('.certificate-card');
+      if (cards[cardIndex]) {
+        const img = cards[cardIndex].querySelector('.certificate-img');
+        img.src = imageUrl;
+      }
+    }
+
+  // Back button functionality
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/'; // or your home page URL
+  }
+}
+
+// Scroll to top functionality
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight;
+  const clientHeight = document.documentElement.clientHeight;
+  
+  // Show button when user is near the bottom of the page
+  if (scrollTop > scrollHeight - clientHeight - 200) {
+    scrollTopBtn.classList.add('show');
+  } else {
+    scrollTopBtn.classList.remove('show');
+  }
+});
+
+    
+    // Example usage:
+    // To update a certificate image, call this function with the index and URL
+    // updateCertificateImage(0, 'path/to/your/certificate.jpg');
+  </script>
+</body>
+</html>
